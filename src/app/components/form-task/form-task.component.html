@@ -1,0 +1,51 @@
+<ion-grid class="ion-height-100">
+  <ion-row class="ion-align-items-center ion-justify-content-center" style="height: 100%">
+    <ion-col size="12" size-md="8" size-lg="6">
+
+      <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+          <ion-list>
+            <ion-item lines="none">
+              <ion-input 
+                type="text" 
+                label="Nombre de la tarea"
+                label-placement="floating" 
+                fill="solid"
+                formControlName="name"
+                [clearInput]="true"
+                [errorText]="nameErrorMessage"
+                (ionInput)="onNameError()"
+                (ionBlur)="onNameError()"
+              ></ion-input>
+            </ion-item>
+
+            <ion-item lines="none">
+              <ion-textarea 
+                formControlName="description"
+                rows="4"
+                label="Descripcion de la tarea" 
+                labelPlacement="floating" 
+                fill="solid"
+                [errorText]="nameErrorMessage"
+                [counter]="true" 
+                maxlength="200"
+                (ionInput)="onNameError()"
+                (ionBlur)="onNameError()"
+              ></ion-textarea>
+            </ion-item>
+
+            <ion-item lines="none">
+              <ion-checkbox mode="ios" formControlName="completed" slot="start" labelPlacement="end">¿Terminada?</ion-checkbox>
+            </ion-item>
+          </ion-list>
+
+          <div class="ion-padding">
+            <ion-button mode="ios" fill="outline" expand="block" type="submit" [disabled]="!taskForm.valid">
+              Guardar
+            </ion-button>
+          </div>
+      </form>
+
+    </ion-col>
+  </ion-row>
+</ion-grid>
+

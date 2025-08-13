@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-export interface Message {
+export interface Task {
   fromName: string;
   subject: string;
   date: string;
@@ -12,13 +12,13 @@ export interface Message {
   providedIn: 'root'
 })
 export class DataService {
-  public messages: Message[] = [
+  public tasks: Task[] = [
     {
       fromName: 'Matt Chorsey',
       subject: 'New event: Trip to Vegas',
       date: '9:32 AM',
       id: 0,
-      read: false
+      read: true
     },
     {
       fromName: 'Lauren Ruthford',
@@ -73,11 +73,11 @@ export class DataService {
 
   constructor() { }
 
-  public getMessages(): Message[] {
-    return this.messages;
+  public getTasks(): Task[] {
+    return this.tasks;
   }
 
-  public getMessageById(id: number): Message {
-    return this.messages[id];
+  public getTasksById(id: number): Task | undefined {
+    return this.tasks.find(task => task.id === id);
   }
 }

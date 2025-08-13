@@ -1,0 +1,34 @@
+:host {
+  display: block;
+  height: 100%;
+
+  .ion-height-100 {
+    height: 100%;
+  }
+  
+  ion-list {
+    background: transparent;
+  }
+
+  ion-item {
+    --background: transparent;
+    margin-bottom: 1rem;
+    
+    &::part(native) {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  ion-button {
+    margin-top: 1.5rem;
+    --border-radius: 8px;
+    --box-shadow: 0 2px 8px rgba(var(--ion-color-primary-rgb), 0.3);
+  }
+
+  ion-checkbox {
+    --size: 24px;
+    --checkbox-background-checked: var(--ion-color-primary);
+  }
+}
