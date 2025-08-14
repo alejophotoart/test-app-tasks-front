@@ -15,6 +15,7 @@
                 [errorText]="nameErrorMessage"
                 (ionInput)="onNameError()"
                 (ionBlur)="onNameError()"
+                [value]="task?.name"
               ></ion-input>
             </ion-item>
 
@@ -30,11 +31,12 @@
                 maxlength="200"
                 (ionInput)="onNameError()"
                 (ionBlur)="onNameError()"
+                [value]="task?.description"
               ></ion-textarea>
             </ion-item>
 
             <ion-item lines="none">
-              <ion-checkbox mode="ios" formControlName="completed" slot="start" labelPlacement="end">¿Terminada?</ion-checkbox>
+              <ion-checkbox mode="ios" formControlName="completed" slot="start" labelPlacement="end" [value]="task?.completed">¿Terminada?</ion-checkbox>
             </ion-item>
           </ion-list>
 

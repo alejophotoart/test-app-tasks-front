@@ -2,9 +2,10 @@ import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonToolbar, Platform, IonBackButton, IonButtons } from '@ionic/angular/standalone';
-import { DataService, Task } from '../../services/data.service';
 import { ActivatedRoute } from '@angular/router';
 import { TaskComponent } from 'src/app/components/task/task.component';
+import { DatabaseService } from 'src/app/services/database.service';
+import { Task } from 'src/app/Interfaces/task';
 
 @Component({
   selector: 'app-view-task',
@@ -15,18 +16,20 @@ import { TaskComponent } from 'src/app/components/task/task.component';
 })
 export class ViewTaskPage implements OnInit {
   public task?: Task
-  private data = inject(DataService);
   private activatedRoute = inject(ActivatedRoute);
+  private databaseService = inject(DatabaseService);
 
   constructor() { }
 
-  ngOnInit() {
+  async ngOnInit() {
     const id = this.activatedRoute.snapshot.paramMap.get('id') as string;
-    this.task = this.data.getTasksById(parseInt(id, 10));
-
+    const result = await this.databaseService.showTaskById(parseInt(id));
+    if (result !== false) {
+      this.task = result;
+    }
   }
 
   getBackButtonText() {
-    return this.task?.fromName || 'Atrás';
+    return this.task?.name || 'Atrás';
   }
 }

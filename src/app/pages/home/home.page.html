@@ -16,5 +16,21 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
-  <app-tasks [tasks]="getTasks()"></app-tasks>
+  <!-- <app-tasks [tasks]="getTasks()"></app-tasks> -->
+  <app-tasks #tasksList [tasks]="tasks()" (deleteTaskEmitter)="presentDeleteAlert($event)"></app-tasks>
+
+  <ion-alert
+    [isOpen]="isAlertOpen"
+    [header]="headerAlert"
+    [message]="messageAlert"
+    [buttons]="alertButtons"
+    (didDismiss)="setOpenAlert(false)"
+  ></ion-alert>
+
+    <ion-toast
+      [isOpen]="isToastOpen"
+      [message]="messageToast"
+      [duration]="5000"
+      (didDismiss)="setOpenToast(false)"
+    ></ion-toast>
 </ion-content>

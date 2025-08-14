@@ -5,10 +5,20 @@
         defaultHref="/"
       ></ion-back-button>
     </ion-buttons>
-    <ion-title>{{ taskId ? 'nombre tarea' : 'Crear Tarea' }}</ion-title>
+    <ion-title>{{ taskId ? task?.name : 'Crear Tarea' }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <app-form-task></app-form-task>
+  <app-form-task (formEmitter)="receivedForm($event)" [task]="task"></app-form-task>
+
+  <ion-alert
+    [isOpen]="isAlertOpen"
+    [header]="headerAlert"
+    [subHeader]="subHeaderAlert"
+    [message]="messageAlert"
+    [buttons]="alertButtons"
+    (didDismiss)="setOpen(false)"
+  ></ion-alert>
+
 </ion-content>

@@ -3,8 +3,8 @@ export interface Task {
     name: string;
     description: string;
     completed: boolean;
-    createdAt: string;
-    updatedAt: string;
+    created_at: string;
+    updated_at: string;
 }
 
 export interface Tasks {

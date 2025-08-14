@@ -1,32 +1,20 @@
 @if (task) {
   <ion-item lines="none">
-    <ion-icon
-      slot="start"
-      aria-hidden="true"
-      name="person-circle"
-      color="primary"
-    ></ion-icon>
     <ion-label class="ion-text-wrap">
       <h2>
-        {{ task.fromName }}
+        {{ task.name }}
         <span class="date">
-          <ion-note>{{ task.date }}</ion-note>
+          <ion-note>{{ task.created_at | relativeTime}}</ion-note>
         </span>
       </h2>
-      <h3>To: <ion-note>Me</ion-note></h3>
+      <h3>Completada: <ion-note>{{ task.completed ? 'Si' : 'No' }}</ion-note></h3>
     </ion-label>
   </ion-item>
 
   <div class="ion-padding">
-    <h1>{{ task.subject }}</h1>
+    <h1>Descripcion</h1>
     <p>
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-      commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-      velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-      cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
-      est laborum.
+      {{ task.description }}
     </p>
   </div>
 }
