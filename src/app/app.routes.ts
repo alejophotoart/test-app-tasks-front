@@ -18,5 +18,9 @@ export const routes: Routes = [
     path: 'create-edit-task',
     loadComponent: () => import('./pages/create-edit-task/create-edit-task.page').then( m => m.CreateEditTaskPage)
   },
+  {
+    path: '**',
+    redirectTo: ''
+  }
 ];
 

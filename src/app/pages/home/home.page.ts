@@ -1,5 +1,5 @@
-import { Component, ViewChild } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonRefresher, IonRefresherContent, IonButtons, IonButton, IonIcon, IonAlert, IonToast } from '@ionic/angular/standalone';
+import { Component, Inject, ViewChild, effect } from '@angular/core';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonRefresher, IonRefresherContent, IonButtons, IonButton, IonIcon, IonAlert, IonToast, IonText } from '@ionic/angular/standalone';
 import { TasksComponent } from 'src/app/components/tasks/tasks.component';
 
 import { Task } from '../../Interfaces/task';
@@ -7,18 +7,21 @@ import { addIcons } from 'ionicons';
 import { addOutline } from 'ionicons/icons';
 import { RouterLink } from '@angular/router';
 import { DatabaseService } from 'src/app/services/database.service';
+import { TaskService } from 'src/app/services/task.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
-  imports: [IonToast, IonAlert, IonButton, IonButtons, IonHeader, IonToolbar, IonTitle, IonContent, IonRefresher, IonRefresherContent, TasksComponent, IonIcon, RouterLink],
+  imports: [IonText, IonToast, IonAlert, IonButton, IonButtons, IonHeader, IonToolbar, IonTitle, IonContent, IonRefresher, IonRefresherContent, TasksComponent, IonIcon, RouterLink],
 })
 export class HomePage {
-  // private data = inject(DataService);
-  tasks = this.database.getTasks();
-  selectedTask: Task | null = null;
   @ViewChild('tasksList') tasksList!: TasksComponent;
+
+  // private taskService = Inject(TaskService)
+  tasks = this.database.getTasks();
+  // private data = inject(DataService);
+  selectedTask: Task | null = null;
   // Config Toast
   isToastOpen: boolean = false
   messageToast: string = ""
@@ -46,14 +49,23 @@ export class HomePage {
     },
   ];
 
-  constructor(private database: DatabaseService) {
-    console.log(this.tasks);
-    addIcons({addOutline});
+  constructor(private database: DatabaseService, private taskService: TaskService) {
+    addIcons({ addOutline });
+    this.initApi()
+  }
+
+  initApi() {
+    // this.taskService.getTasks().subscribe(
+    //   (tasks) => {
+    //     console.log(tasks);
+    //   }
+    // )
   }
 
   async refresh(ev: any) {
     await this.database.loadTasks()
     this.tasks = this.database.getTasks();
+    ev.target.complete();
   }
 
   presentDeleteAlert(task: Task) {

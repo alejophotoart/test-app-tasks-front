@@ -16,6 +16,18 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
+  @if (!tasks() || tasks().length === 0) {
+    <div class="ion-text-center ion-padding">
+      <ion-text>
+        <h2>No hay tareas disponibles</h2>
+        <p>¡Comienza creando una nueva tarea!</p>
+      </ion-text>
+      <ion-button expand="block" class="ion-margin-top" [routerLink]="['/create-edit-task']">
+        <ion-icon slot="start" name="add-outline"></ion-icon>
+        Crear Tarea
+      </ion-button>
+    </div>
+  }
   <!-- <app-tasks [tasks]="getTasks()"></app-tasks> -->
   <app-tasks #tasksList [tasks]="tasks()" (deleteTaskEmitter)="presentDeleteAlert($event)"></app-tasks>
 

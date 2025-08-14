@@ -4,8 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonBackButton, IonAlert } from '@ionic/angular/standalone';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormTaskComponent } from 'src/app/components/form-task/form-task.component';
-import { DatabaseService } from 'src/app/services/database.service';
 import { Task } from '../../Interfaces/task'
+import { TaskService } from 'src/app/services/task.service';
 
 @Component({
   selector: 'app-create-edit-task',
@@ -18,7 +18,7 @@ export class CreateEditTaskPage implements OnInit {
 
   public taskId?: string
   private activatedRoute = inject(ActivatedRoute);
-  private databaseService = inject(DatabaseService);
+  private taskService = inject(TaskService);
   private router = inject(Router);
   public formReceived?: Task
   public task?: Task
@@ -36,7 +36,7 @@ export class CreateEditTaskPage implements OnInit {
   async ngOnInit() {
     this.taskId = this.activatedRoute.snapshot.paramMap.get('id') as string;
     if (this.taskId) {
-      const result = await this.databaseService.showTaskById(parseInt(this.taskId));
+      const result = await this.taskService.getTaskById(parseInt(this.taskId));
       if (result !== false) {
         this.task = result;
       }
@@ -54,7 +54,7 @@ export class CreateEditTaskPage implements OnInit {
   }
 
   async addTask() {
-    const result = await this.databaseService.addtask(this.formReceived!)
+    const result = await this.taskService.create(this.formReceived!)
     if (result) {
       this.setAlertMessage("Tarea Guardada", "", "Tarea guardada exitosamente")  
     } else {
@@ -63,7 +63,7 @@ export class CreateEditTaskPage implements OnInit {
   }
 
   async editTask() {
-    const result = await this.databaseService.updateTaskById(this.formReceived!)
+    const result = await this.taskService.update(this.formReceived!)
     if (result) {
       this.setAlertMessage("Tarea Actualizada", "", "Tarea actualizada exitosamente")  
     } else {
